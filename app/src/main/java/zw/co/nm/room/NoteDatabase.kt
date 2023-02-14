@@ -9,12 +9,13 @@ import androidx.room.RoomDatabase
 abstract class NoteDatabase : RoomDatabase() {
 
 
-    private lateinit var noteDao: NoteDao
+    lateinit var noteDao: NoteDao
 
     companion object {
-        private lateinit var instance: NoteDatabase
+        private var INSTANCE: NoteDatabase? = null
         @Synchronized
         fun getInstance(context: Context): NoteDatabase {
+            var instance = INSTANCE
             if (instance == null) {
                 instance = Room.databaseBuilder(
                     context.applicationContext,
